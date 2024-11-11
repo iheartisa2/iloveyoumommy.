@@ -76,34 +76,45 @@
       const repoOwner = "iheartisa2"; // GitHub username
       const repoName = "iloveyoumommy"; // Repository name
       const folderPath = "memories"; // Folder inside the repo
+      const commitHash = "f01477013def6cd90a3296d545d30bbecc342398"; // Commit hash to reference
 
       // Fetch the list of images in the 'memories' folder from the GitHub API
-      fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`)
-        .then(response => response.json())
-        .then(data => {
-          // Filter only images (you can adjust this for other file types)
-          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|gif)$/i));
-
-          // Create img elements for each image
-          imageFiles.forEach((file, index) => {
-            const img = document.createElement("img");
-            img.src = file.download_url; // GitHub provides a download URL for each file
-            img.classList.add(index === 0 ? "slide-active" : ""); // Make the first image visible
-            slideContainer.appendChild(img);
-          });
-
-          let currentIndex = 0;
-          const slides = document.querySelectorAll('.slides img');
-
-          // Function to move to the next slide
-          function showNextSlide() {
-            slides[currentIndex].classList.remove("slide-active");
-            currentIndex = (currentIndex + 1) % slides.length;
-            slides[currentIndex].classList.add("slide-active");
+      fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}?ref=${commitHash}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Folder not found or invalid path');
           }
+          return response.json();
+        })
+        .then(data => {
+          // Check if the data is an array (list of files)
+          if (Array.isArray(data)) {
+            // Filter only images (you can adjust this for other file types)
+            const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|gif)$/i));
 
-          // Change slides every 3 seconds
-          setInterval(showNextSlide, 3000);
+            // Create img elements for each image
+            imageFiles.forEach((file, index) => {
+              const img = document.createElement("img");
+              img.src = file.download_url; // GitHub provides a download URL for each file
+              img.classList.add(index === 0 ? "slide-active" : ""); // Make the first image visible
+              slideContainer.appendChild(img);
+            });
+
+            let currentIndex = 0;
+            const slides = document.querySelectorAll('.slides img');
+
+            // Function to move to the next slide
+            function showNextSlide() {
+              slides[currentIndex].classList.remove("slide-active");
+              currentIndex = (currentIndex + 1) % slides.length;
+              slides[currentIndex].classList.add("slide-active");
+            }
+
+            // Change slides every 3 seconds
+            setInterval(showNextSlide, 3000);
+          } else {
+            throw new Error('Invalid response format, expected an array');
+          }
         })
         .catch(error => {
           console.error("Error fetching images:", error);
