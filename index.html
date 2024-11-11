@@ -21,17 +21,20 @@
             height: 100vh;
             color: #e91e63; /* Pink text */
             overflow: hidden;
+            flex-direction: column;
         }
 
         .envelope {
             background-color: #1c1c1c;
-            width: 400px;
+            width: 90%;
+            max-width: 400px;
             height: 300px;
             border: 3px solid #4d4d4d;
             border-radius: 10px;
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
         }
 
         .envelope:before {
@@ -54,7 +57,7 @@
             background-color: #ffcccc;
             border-radius: 50%;
             border: 2px solid #4d4d4d;
-            background-image: url('stamp.jpg'); /* Stamp image */
+            background-image: url('stamp.jpg'); /* Default stamp image */
             background-size: cover;
             z-index: 1;
         }
@@ -66,51 +69,39 @@
             z-index: 0;
             position: relative;
             margin-top: 40px;
+            text-align: center;
         }
 
-        .pictures {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+        .content h1 {
+            font-size: 24px;
+            color: #ff6fa1; /* Lighter pink */
         }
 
-        .pictures img {
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-
-        .pictures img:hover {
-            opacity: 1;
+        .content p {
+            line-height: 1.5;
+            font-size: 18px;
+            color: #ccc;
         }
 
         .slideshow-container {
-            position: absolute;
-            bottom: 0;
             width: 100%;
             height: 200px;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #1c1c1c;
+            position: relative;
         }
 
         .slides {
             display: flex;
-            transition: transform 1s ease;
+            animation: slideAnimation 15s infinite linear;
         }
 
         .slides img {
-            width: 150px;
-            height: 150px;
-            margin: 0 10px;
-            border-radius: 12px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
-        /* Add animation for the slideshow */
         @keyframes slideAnimation {
             0% { transform: translateX(0); }
             20% { transform: translateX(-100%); }
@@ -120,33 +111,41 @@
             100% { transform: translateX(0); }
         }
 
-        .slideshow-container .slides {
-            animation: slideAnimation 10s infinite;
-        }
+        /* Mobile-friendly styling */
+        @media (max-width: 600px) {
+            .envelope {
+                max-width: 90%;
+                height: auto;
+            }
 
-        h1 {
-            font-size: 24px;
-            color: #ff6fa1; /* Lighter pink */
-        }
-        
-        /* Text positioning for message */
-        .content p {
-            line-height: 1.5;
-            font-size: 18px;
-            color: #ccc;
-        }
+            .content h1 {
+                font-size: 20px;
+            }
 
-        .content p:first-child {
-            font-size: 22px;
-            font-weight: bold;
-        }
+            .content p {
+                font-size: 16px;
+            }
 
+            .pictures img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .slideshow-container {
+                height: 150px;
+            }
+
+            .slides img {
+                width: 80%;
+                height: auto;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="envelope">
-        <div class="stamp"></div>
+        <div class="stamp" id="stamp"></div>
         <div class="content">
             <h1>hii mommy :3</h1>
             <p>this for mommy only ></p>
@@ -159,22 +158,56 @@
 
             <p>i love mommy<3 :3</p>
         </div>
-
-        <div class="pictures">
-            <img src="mommy1.jpg" alt="Mommy Image 1">
-            <img src="mommy2.jpg" alt="Mommy Image 2">
-        </div>
     </div>
 
     <div class="slideshow-container">
-        <div class="slides">
-            <img src="image1.jpg" alt="Slideshow Image 1">
-            <img src="image2.jpg" alt="Slideshow Image 2">
-            <img src="image3.jpg" alt="Slideshow Image 3">
-            <img src="image4.jpg" alt="Slideshow Image 4">
-            <img src="image5.jpg" alt="Slideshow Image 5">
+        <div class="slides" id="slides">
+            <!-- Slideshow images will be added dynamically here -->
         </div>
     </div>
+
+    <script>
+        // URL of your GitHub repository's "memories" folder
+        const folderURL = "https://raw.githubusercontent.com/iheartisa2/iloveyoumommy/main/memories/";
+
+        // Function to get all the image files from the GitHub repository
+        async function getImagesFromGitHub() {
+            const apiURL = `https://api.github.com/repos/iheartisa2/iloveyoumommy/contents/memories`;
+            const response = await fetch(apiURL);
+            const data = await response.json();
+
+            // Filter only image files
+            const imageFiles = data.filter(item => 
+                item.name.endsWith('.jpg') || item.name.endsWith('.png') || item.name.endsWith('.jpeg')
+            );
+
+            return imageFiles.map(item => item.name); // Get the file names
+        }
+
+        // Function to set a random image as the stamp
+        function setRandomEnvelopeImage(images) {
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            document.getElementById("stamp").style.backgroundImage = `url('${folderURL}${randomImage}')`;
+        }
+
+        // Function to create the slideshow
+        function createSlideshow(images) {
+            const slidesContainer = document.getElementById("slides");
+            images.forEach(image => {
+                const imgElement = document.createElement("img");
+                imgElement.src = `${folderURL}${image}`;
+                imgElement.alt = "Slideshow Image";
+                slidesContainer.appendChild(imgElement);
+            });
+        }
+
+        // Run functions
+        getImagesFromGitHub().then(images => {
+            setRandomEnvelopeImage(images);
+            createSlideshow(images);
+        });
+
+    </script>
 
 </body>
 </html>
