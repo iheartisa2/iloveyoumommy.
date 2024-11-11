@@ -1,215 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message for Mommy</title>
-    <style>
-        /* Basic reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Mommy<3</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            background-color: #121212; /* Dark theme */
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #e91e63; /* Pink text */
-            overflow: hidden;
-            flex-direction: column;
-        }
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
 
-        .envelope {
-            background-color: #1c1c1c;
-            width: 90%;
-            max-width: 400px;
-            height: 300px;
-            border: 3px solid #4d4d4d;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
-        }
+    h1 {
+      font-size: 2em;
+      color: pink;
+      margin: 20px 0;
+    }
 
-        .envelope:before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 0;
-            width: 100%;
-            height: 50px;
-            background-color: #333;
-            border-bottom: 2px solid #4d4d4d;
-        }
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .stamp {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 60px;
-            height: 60px;
-            background-color: #ffcccc;
-            border-radius: 50%;
-            border: 2px solid #4d4d4d;
-            background-image: url('stamp.jpg'); /* Default stamp image */
-            background-size: cover;
-            z-index: 1;
-        }
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      background-color: #111;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
 
-        .content {
-            padding: 20px;
-            font-size: 16px;
-            color: #fff; /* White text */
-            z-index: 0;
-            position: relative;
-            margin-top: 40px;
-            text-align: center;
-            max-height: 180px;
-            overflow-y: auto;
-        }
+    .slides img {
+      width: 100%;
+      height: auto;
+      display: none;
+    }
 
-        .content h1 {
-            font-size: 24px;
-            color: #ff6fa1; /* Lighter pink */
-        }
+    .slide-active {
+      display: block;
+    }
 
-        .content p {
-            line-height: 1.5;
-            font-size: 18px;
-            color: #ccc;
-        }
-
-        .slideshow-container {
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .slides {
-            display: flex;
-            animation: slideAnimation 15s infinite linear;
-        }
-
-        .slides img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        @keyframes slideAnimation {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-100%); }
-            40% { transform: translateX(-200%); }
-            60% { transform: translateX(-300%); }
-            80% { transform: translateX(-400%); }
-            100% { transform: translateX(0); }
-        }
-
-        /* Mobile-friendly styling */
-        @media (max-width: 600px) {
-            .envelope {
-                max-width: 90%;
-                height: auto;
-            }
-
-            .content h1 {
-                font-size: 20px;
-            }
-
-            .content p {
-                font-size: 16px;
-            }
-
-            .pictures img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .slideshow-container {
-                height: 150px;
-            }
-
-            .slides img {
-                width: 80%;
-                height: auto;
-            }
-        }
-    </style>
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
 </head>
 <body>
-
-    <div class="envelope">
-        <div class="stamp" id="stamp"></div>
-        <div class="content">
-            <h1>hii mommy :3</h1>
-            <p>this for mommy only ></p>
-
-            <p>Honestly, you’re like my favorite part of every single day. idk how u do it, but even the smallest things you do make everything better. Just mommy being mommy makes me feel like the happiest person alive, happiest person on earth when I’m w mommy :3</p>
-
-            <p>you bring this vibe that makes me wanna be the best version of myself, and no one else has ever made me feel like that. i look at mommy…and see someone who’s not only insanely gorgeous but also genuinely cute, pretty, and kind :3. you’re perfect just the way u are—</p>
-
-            <p>thank u for being my motivation, my happiness, and honestly, my whole world, mommy</p>
-
-            <p>i love mommy<3 :3</p>
-        </div>
-    </div>
-
+  <div class="container">
+    <header>
+      <h1>For Mommy<3 because I can't explain to you how much I love you.</h1>
+    </header>
+    
     <div class="slideshow-container">
-        <div class="slides" id="slides">
-            <!-- Slideshow images will be added dynamically here -->
-        </div>
+      <div class="slides">
+        <!-- Images will be inserted here dynamically -->
+      </div>
     </div>
+  </div>
 
-    <script>
-        // URL of your GitHub repository's "memories" folder
-        const folderURL = "https://raw.githubusercontent.com/iheartisa2/iloveyoumommy/main/memories/";
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const slideContainer = document.querySelector('.slides');
+      const repoOwner = "iheartisa2"; // GitHub username
+      const repoName = "iloveyoumommy"; // Repository name
+      const folderPath = "memories"; // Folder inside the repo
 
-        // Function to get all the image files from the GitHub repository
-        async function getImagesFromGitHub() {
-            const apiURL = `https://api.github.com/repos/iheartisa2/iloveyoumommy/contents/memories`;
-            const response = await fetch(apiURL);
-            const data = await response.json();
+      // Fetch the list of images in the 'memories' folder from the GitHub API
+      fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`)
+        .then(response => response.json())
+        .then(data => {
+          // Filter only images (you can adjust this for other file types)
+          const imageFiles = data.filter(file => file.name.match(/\.(jpg|jpeg|png|gif)$/i));
 
-            // Filter only image files
-            const imageFiles = data.filter(item => 
-                item.name.endsWith('.jpg') || item.name.endsWith('.png') || item.name.endsWith('.jpeg')
-            );
+          // Create img elements for each image
+          imageFiles.forEach((file, index) => {
+            const img = document.createElement("img");
+            img.src = file.download_url; // GitHub provides a download URL for each file
+            img.classList.add(index === 0 ? "slide-active" : ""); // Make the first image visible
+            slideContainer.appendChild(img);
+          });
 
-            return imageFiles.map(item => item.name); // Get the file names
-        }
+          let currentIndex = 0;
+          const slides = document.querySelectorAll('.slides img');
 
-        // Function to set a random image as the stamp
-        function setRandomEnvelopeImage(images) {
-            const randomImage = images[Math.floor(Math.random() * images.length)];
-            document.getElementById("stamp").style.backgroundImage = `url('${folderURL}${randomImage}')`;
-        }
+          // Function to move to the next slide
+          function showNextSlide() {
+            slides[currentIndex].classList.remove("slide-active");
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.add("slide-active");
+          }
 
-        // Function to create the slideshow
-        function createSlideshow(images) {
-            const slidesContainer = document.getElementById("slides");
-            images.forEach(image => {
-                const imgElement = document.createElement("img");
-                imgElement.src = `${folderURL}${image}`;
-                imgElement.alt = "Slideshow Image";
-                slidesContainer.appendChild(imgElement);
-            });
-        }
-
-        // Run functions
-        getImagesFromGitHub().then(images => {
-            setRandomEnvelopeImage(images);
-            createSlideshow(images);
+          // Change slides every 3 seconds
+          setInterval(showNextSlide, 3000);
+        })
+        .catch(error => {
+          console.error("Error fetching images:", error);
         });
-
-    </script>
-
+    });
+  </script>
 </body>
 </html>
